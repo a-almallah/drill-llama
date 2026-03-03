@@ -17,5 +17,15 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not await check_user(update): return
     
     text = update.message.text
-    response = await llm.generate_insult(text)
+    chat_history.append(f"User: {text}")
+    if len(chat_history) > 5:
+        chat_history.pop(0)
+    
+    context_text = "\n".join(chat_history)
+    response = await llm.generate_insult(context_text)
+    
+    chat_history.append(f"Coach: {response}")
+    if len(chat_history) > 5:
+        chat_history.pop(0)
+        
     await update.message.reply_text(response)
