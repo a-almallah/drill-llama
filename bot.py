@@ -29,3 +29,6 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         chat_history.pop(0)
         
     await update.message.reply_text(response)
+
+async def proactive_insult_loop(app):
+    pass
