@@ -31,4 +31,10 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(response)
 
 async def proactive_insult_loop(app):
-    pass
+    while True:
+        await asyncio.sleep(2)
+        try:
+            response = await llm.generate_proactive_insult()
+            await app.bot.send_message(chat_id=ALLOWED_USER_ID, text=response)
+        except Exception as e:
+            print(f"Failed to send proactive message: {e}")
