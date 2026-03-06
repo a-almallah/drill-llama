@@ -32,7 +32,8 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def proactive_insult_loop(app):
     while True:
-        await asyncio.sleep(2)
+        # Sleep randomly between 2 and 6 hours
+        await asyncio.sleep(random.uniform(2 * 3600, 6 * 3600))
         try:
             response = await llm.generate_proactive_insult()
             await app.bot.send_message(chat_id=ALLOWED_USER_ID, text=response)
